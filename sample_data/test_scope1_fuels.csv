@@ -1,0 +1,5 @@
+invoice_id,date,vendor,activity,quantity,unit,amount_usd
+INV-S1-001,2026-03-01,FleetFuel Express,diesel fuel delivery,1200,gallons,4560.00
+INV-S1-002,2026-03-05,City Gas Distribution,heating natural gas,3400,therms,2380.00
+INV-S1-003,2026-03-10,Speedy Petro,unleaded gasoline,850,liters,1445.00
+INV-S1-004,2026-03-15,Global Propane Co,propane heating,450,liters,630.00

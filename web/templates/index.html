@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoChain 24 — Autonomous Multi-Agent Carbon Auditor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="logo-area">
+      <div class="logo-badge">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="brand-title">EcoChain 24</h1>
+        <div class="brand-subtitle">Autonomous AI Carbon Auditor &bull; Cryptographic Ledger</div>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <div id="stat-ledger-health" class="pill pill-approved mono">
+        CHAIN: VERIFYING...
+      </div>
+      <button id="btn-verify-chain" class="btn btn-verify btn-sm">
+        <svg style="width: 14px; height: 14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+        Verify Hash Chain
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Alert / Verification Banner -->
+    <div id="ledger-verify-banner" style="display: none;"></div>
+
+    <!-- Executive Metric Cards -->
+    <section class="stats-grid">
+      <div class="stat-card scope-all">
+        <div class="stat-label">Total Disclosed Carbon</div>
+        <div class="stat-value"><span id="stat-total-tco2e">0.00</span> <span class="stat-unit">tCO2e</span></div>
+        <div class="stat-foot">GHG Protocol Scope 1, 2, 3</div>
+      </div>
+
+      <div class="stat-card scope-1">
+        <div class="stat-label">Scope 1 (Direct)</div>
+        <div class="stat-value"><span id="stat-scope1">0.00</span> <span class="stat-unit">tCO2e</span></div>
+        <div class="stat-foot">Combustion & Fleet Fuels</div>
+      </div>
+
+      <div class="stat-card scope-2">
+        <div class="stat-label">Scope 2 (Electricity)</div>
+        <div class="stat-value"><span id="stat-scope2">0.00</span> <span class="stat-unit">tCO2e</span></div>
+        <div class="stat-foot">Purchased Grid & Clean Energy</div>
+      </div>
+
+      <div class="stat-card scope-3">
+        <div class="stat-label">Scope 3 (Value Chain)</div>
+        <div class="stat-value"><span id="stat-scope3">0.00</span> <span class="stat-unit">tCO2e</span></div>
+        <div class="stat-foot">Travel, Freight & Supply Chain</div>
+      </div>
+
+      <div class="stat-card ledger-health">
+        <div class="stat-label">Ledger Blocks</div>
+        <div class="stat-value"><span id="stat-ledger-blocks">0</span> <span class="stat-unit">Blocks</span></div>
+        <div class="stat-foot mono">SHA-256 Tamper-Proof</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Audit Confidence</div>
+        <div class="stat-value"><span id="stat-confidence">100%</span></div>
+        <div class="stat-foot" id="stat-readiness">Grade A Readiness</div>
+      </div>
+    </section>
+
+  <!-- Toast Notifications Container -->
+  <div id="toast-container"></div>
+
+  <!-- Ingestion Action Banner -->
+  <section class="action-banner">
+    <div>
+      <h2>Multi-Agent Pipeline Ingestion</h2>
+      <p>Autonomous ingestion, unit normalization, emission factors calculation, and cryptographic ledger logging.</p>
+    </div>
+    <div class="button-group">
+      <button id="btn-ingest-sample" class="btn btn-primary">
+        <svg style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        Ingest Sample Data (Invoices + ERP + Utility)
+      </button>
+
+      <label class="btn btn-secondary" style="cursor: pointer;">
+        <svg style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+        </svg>
+        Upload Source File (CSV/JSON)
+        <input type="file" id="file-upload-input" accept=".csv,.json" style="display: none;">
+      </label>
+
+      <a href="/api/reports/export/csv" class="btn btn-secondary">
+        <svg style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        Export Disclosures CSV
+      </a>
+    </div>
+  </section>
+
+  <!-- Tab Navigation -->
+  <nav class="tabs-nav">
+    <button class="tab-btn active" data-tab="tab-intake">
+      Data Intake Zone
+    </button>
+    <button class="tab-btn" data-tab="tab-records">
+      Audited Records
+    </button>
+    <button class="tab-btn" data-tab="tab-hitl">
+      HITL Review Queue <span id="hitl-badge-count" class="badge-count">0</span>
+    </button>
+    <button class="tab-btn" data-tab="tab-ledger">
+      Cryptographic Audit Trail
+    </button>
+    <button class="tab-btn" data-tab="tab-disclosure">
+      Board Disclosures
+    </button>
+  </nav>
+
+  <!-- Tab 0: Dedicated Data Intake Zone -->
+  <section id="tab-intake" class="tab-content active">
+    <div class="intake-grid">
+
+      <!-- Column 1: Direct File Drop / Upload -->
+      <div class="content-card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Dropzone & Ingestion Channel</div>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
+              Files land immutably in <code>storage/raw/&lt;type&gt;/</code> before processing (§1 &amp; §2.1).
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Target Ingestion Category</label>
+          <select id="intake-source-hint" class="form-select">
+            <option value="auto">Auto-Detect by filename &amp; headers</option>
+            <option value="invoice">Supplier Invoices (storage/raw/invoices/)</option>
+            <option value="erp">ERP Travel &amp; Procurement (storage/raw/erp/)</option>
+            <option value="utility">Utility Smart Meter (storage/raw/utility/)</option>
+          </select>
+        </div>
+
+        <div id="intake-dropzone" class="drop-zone">
+          <svg style="width: 36px; height: 36px; margin: 0 auto 10px; display: block; stroke: var(--brand-accent);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+          </svg>
+          <strong style="color: #fff; font-size: 0.95rem;">Drag &amp; Drop CSV or JSON files here</strong>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin: 6px 0 12px;">or click to browse from your device</p>
+          <input type="file" id="intake-file-input" accept=".csv,.json" style="display: none;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('intake-file-input').click()">Browse Files</button>
+        </div>
+      </div>
+
+      <!-- Column 2: Manual Single Transaction Entry -->
+      <div class="content-card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Manual Transaction Entry</div>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
+              Input ad-hoc transaction parameters directly into the agent pipeline.
+            </p>
+          </div>
+        </div>
+
+        <form id="form-manual-entry">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <div>
+              <label style="font-size: 0.78rem; color: var(--text-muted);">Supplier / Facility</label>
+              <input type="text" id="manual-vendor" class="form-input" placeholder="e.g. Apex Fuel Logistics" required>
+            </div>
+            <div>
+              <label style="font-size: 0.78rem; color: var(--text-muted);">Activity Date</label>
+              <input type="date" id="manual-date" class="form-input" required>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 0.78rem; color: var(--text-muted);">Activity Type</label>
+            <select id="manual-activity" class="form-select">
+              <option value="diesel_fuel_liters">Diesel Fleet Fuel (liters / gallons)</option>
+              <option value="electricity_grid_kwh">Purchased Grid Electricity (kWh / MWh)</option>
+              <option value="electricity_grid_green_kwh">Certified Solar / Green Power (kWh)</option>
+              <option value="natural_gas_therm">Natural Gas Heating (therms / m3)</option>
+              <option value="air_travel_passenger_km">Commercial Flight (km / miles)</option>
+              <option value="rail_travel_passenger_km">Rail Travel (passenger km)</option>
+              <option value="freight_truck_tonne_km">Road Truck Freight (tonne_km)</option>
+              <option value="it_hardware_unit">Enterprise IT Laptops (units)</option>
+              <option value="waste_landfill_kg">Landfill Waste (kg / lbs)</option>
+            </select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+            <div>
+              <label style="font-size: 0.78rem; color: var(--text-muted);">Quantity</label>
+              <input type="number" id="manual-qty" step="any" class="form-input" placeholder="e.g. 1500" required>
+            </div>
+            <div>
+              <label style="font-size: 0.78rem; color: var(--text-muted);">Unit</label>
+              <input type="text" id="manual-unit" class="form-input" placeholder="e.g. gallons, kWh, km" required>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-submit-manual" class="btn btn-primary" style="width: 100%;">
+            Audit &amp; Chain Transaction
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Row 2: Pre-Loaded Test Datasets Library -->
+    <div class="content-card" style="margin-bottom: 24px;">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Pre-Loaded Test Datasets Library</div>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
+            Click any test scenario below to automatically run it through the supervisor pipeline.
+          </p>
+        </div>
+      </div>
+
+      <div class="test-grid">
+        <div class="test-card">
+          <div>
+            <div class="test-card-title">Scope 1 Fuel Operations</div>
+            <div class="test-card-desc">Fleet diesel, natural gas, gasoline &amp; propane with automatic gallons-to-liters normalization.</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="loadNamedSample('test_scope1_fuels.csv', 'invoice')">
+            Run Scope 1 Test
+          </button>
+        </div>
+
+        <div class="test-card">
+          <div>
+            <div class="test-card-title">Scope 2 Grid &amp; Solar Power</div>
+            <div class="test-card-desc">Grid electricity smart meters &amp; clean solar green fleet feeds in JSON format.</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="loadNamedSample('test_scope2_utilities.json', 'utility')">
+            Run Scope 2 Test
+          </button>
+        </div>
+
+        <div class="test-card">
+          <div>
+            <div class="test-card-title">Scope 3 Value Chain &amp; Logistics</div>
+            <div class="test-card-desc">Transcontinental flights, rail travel, enterprise laptops, and road freight tonne-km.</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="loadNamedSample('test_scope3_supplychain.csv', 'erp')">
+            Run Scope 3 Test
+          </button>
+        </div>
+
+        <div class="test-card" style="border-color: rgba(244, 63, 94, 0.3);">
+          <div>
+            <div class="test-card-title" style="color: #fda4af;">Anomalies &amp; Outliers Stress Test</div>
+            <div class="test-card-desc">990k gal volume anomaly, duplicate invoices, negative quantity, and unregistered vendors.</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" style="border-color: #f43f5e; color: #fda4af;" onclick="loadNamedSample('test_anomalies_and_duplicates.csv', 'invoice')">
+            Run Anomaly Test
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Raw Snippet Paste -->
+    <div class="content-card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Paste Raw CSV / JSON Snippet</div>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
+            Paste raw text rows directly into the intake channel for immediate pipeline execution.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <textarea id="raw-snippet-text" class="form-textarea" rows="4" placeholder="Paste CSV rows (header + data) or JSON array...&#10;e.g. invoice_id,date,vendor,activity,quantity,unit,amount_usd&#10;INV-DEMO-01,2026-03-10,Speedy Delivery,diesel fuel,250,gallons,1000.00"></textarea>
+      </div>
+      <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+        <select id="raw-snippet-hint" class="form-select" style="width: 160px; font-size: 0.8rem; padding: 6px 10px;">
+          <option value="invoice">Invoice Format</option>
+          <option value="erp">ERP Format</option>
+          <option value="utility">Utility Format</option>
+        </select>
+        <button id="btn-submit-snippet" class="btn btn-primary btn-sm">
+          Ingest Raw Snippet
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tab 1: Audited Records -->
+  <section id="tab-records" class="tab-content">
+      <div class="content-card">
+        <div class="card-header">
+          <div class="card-title">Normalized & Audited Records</div>
+          <div style="display: flex; gap: 12px;">
+            <select id="filter-scope" class="form-select" style="width: 150px; padding: 6px 12px; font-size: 0.8rem;">
+              <option value="ALL">All Scopes</option>
+              <option value="Scope 1">Scope 1</option>
+              <option value="Scope 2">Scope 2</option>
+              <option value="Scope 3">Scope 3</option>
+            </select>
+            <input type="text" id="search-records" placeholder="Search supplier or ID..." class="form-input" style="width: 220px; padding: 6px 12px; font-size: 0.8rem;">
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Record ID</th>
+                <th>Date</th>
+                <th>Supplier / Facility</th>
+                <th>Activity Type</th>
+                <th>Scope</th>
+                <th>Activity Quantity</th>
+                <th>Emissions (tCO2e)</th>
+                <th>Confidence</th>
+                <th>Audit Status</th>
+                <th>Provenance</th>
+              </tr>
+            </thead>
+            <tbody id="records-tbody">
+              <tr><td colspan="10" class="empty-state">No records loaded. Ingest sample data to view results.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: HITL Review Queue -->
+    <section id="tab-hitl" class="tab-content">
+      <div style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h3 style="font-size: 1.15rem;">Human-In-The-Loop Audit Queue</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Records flagged by the Audit Agent for statistical anomalies, category threshold exceedance, or low confidence scores.
+          </p>
+        </div>
+        <div id="hitl-batch-actions" style="display: flex; gap: 10px;">
+          <button id="btn-hitl-accept-all" class="btn btn-primary btn-sm" onclick="resolveAllHITL('approve')">
+            <svg style="width: 14px; height: 14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            Accept All Pending
+          </button>
+          <button id="btn-hitl-reject-all" class="btn btn-danger btn-sm" onclick="resolveAllHITL('reject')">
+            <svg style="width: 14px; height: 14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+            Reject All Pending
+          </button>
+        </div>
+      </div>
+      <div id="hitl-cards-container">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+    <!-- Tab 3: Cryptographic Audit Trail Explorer -->
+    <section id="tab-ledger" class="tab-content">
+      <div class="content-card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">SHA-256 Chained Audit Ledger</div>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
+              Append-only tamper-evident blockchain-style ledger. Each agent transition is hashed and chained with its predecessor.
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <span id="tab3-verify-badge" class="pill pill-approved mono" style="display: none;">CHAIN 100% INTACT</span>
+            <button id="btn-tab3-verify" onclick="verifyLedgerChain(true)" class="btn btn-verify btn-sm">
+              Check Chain Integrity
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Block #</th>
+                <th>Time (UTC)</th>
+                <th>Record ID</th>
+                <th>Agent</th>
+                <th>Action</th>
+                <th>Previous Block Hash</th>
+                <th>Current Block Hash</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-tbody">
+              <!-- Injected via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Board Disclosures -->
+    <section id="tab-disclosure" class="tab-content">
+      <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h3 style="font-size: 1.2rem;">GHG Protocol Carbon Disclosure Report</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Executive breakdown compliant with Corporate GHG Protocol Scope 1, 2, and 3 disclosure standards.
+          </p>
+        </div>
+        <div class="button-group">
+          <button id="btn-view-json" class="btn btn-secondary btn-sm" onclick="openJsonModal()">View JSON</button>
+          <a href="/api/reports/export/json?download=true" class="btn btn-secondary btn-sm">Download JSON</a>
+          <a href="/api/reports/export/csv" class="btn btn-primary btn-sm">Download CSV</a>
+        </div>
+      </div>
+
+      <div id="disclosure-view">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Override Modal Dialog -->
+  <div id="override-modal" class="modal-overlay">
+    <div class="modal-box">
+      <h3>HITL Auditor Adjustment: <span id="modal-record-id" class="mono"></span></h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        Adjust the activity quantity or reassign an authoritative emission factor. This action will be cryptographically logged.
+      </p>
+
+      <div class="form-group">
+        <label>Adjusted Activity Quantity</label>
+        <input type="number" id="modal-qty" class="form-input" step="any">
+      </div>
+
+      <div class="form-group">
+        <label>Assign Emission Factor (Optional)</label>
+        <select id="modal-factor-select" class="form-select">
+          <option value="">Keep current factor</option>
+          <option value="natural_gas_therm">Natural Gas (5.306 kgCO2e/therm)</option>
+          <option value="natural_gas_kwh">Natural Gas (0.181 kgCO2e/kWh)</option>
+          <option value="diesel_fuel_liters">Diesel Fleet Fuel (2.687 kgCO2e/liter)</option>
+          <option value="gasoline_fuel_liters">Gasoline Fuel (2.314 kgCO2e/liter)</option>
+          <option value="electricity_grid_kwh">US Grid Electricity (0.372 kgCO2e/kWh)</option>
+          <option value="electricity_grid_green_kwh">Renewable/Solar (0.015 kgCO2e/kWh)</option>
+          <option value="air_travel_passenger_km">Air Passenger Travel (0.184 kgCO2e/p-km)</option>
+          <option value="rail_travel_passenger_km">Rail Passenger Travel (0.035 kgCO2e/p-km)</option>
+          <option value="freight_truck_tonne_km">Road Truck Freight (0.162 kgCO2e/t-km)</option>
+          <option value="it_hardware_unit">Enterprise Laptop/IT (210.0 kgCO2e/unit)</option>
+          <option value="waste_landfill_kg">Landfill Waste (0.586 kgCO2e/kg)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Auditor Notes & Justification (Mandatory for ledger)</label>
+        <textarea id="modal-notes" class="form-textarea" rows="3" placeholder="Explain the adjustment or correction rationale..."></textarea>
+      </div>
+
+      <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+        <button class="btn btn-secondary" onclick="closeOverrideModal()">Cancel</button>
+        <button id="modal-btn-save" class="btn btn-primary">Save & Certify Resolution</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JSON Viewer Modal Dialog -->
+  <div id="json-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 780px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3>Board Carbon Disclosure JSON</h3>
+        <span class="pill pill-approved mono">GHG Protocol Standard</span>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+        Cryptographically signed disclosure payload generated from approved and audited emission blocks.
+      </p>
+
+      <pre id="json-modal-content" class="json-viewer-pre">Loading JSON report...</pre>
+
+      <div style="display: flex; gap: 10px; justify-content: space-between; margin-top: 16px; align-items: center;">
+        <a href="/api/reports/export/json" target="_blank" class="btn btn-secondary btn-sm">Open Raw JSON in New Tab</a>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary btn-sm" onclick="copyJsonToClipboard()">Copy JSON</button>
+          <button class="btn btn-primary btn-sm" onclick="closeJsonModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

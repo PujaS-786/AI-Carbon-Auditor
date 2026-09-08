@@ -1,0 +1,2 @@
+invoice_id,supplier,date,activity,quantity,unit,cost,currency
+INV-WEB-001,Web Vendor,2026-03-01,diesel fuel,100,liters,200,USD

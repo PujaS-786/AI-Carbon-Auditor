@@ -1,0 +1,42 @@
+[
+  {
+    "bill_id": "UTIL-ELEC-2024-01",
+    "billing_date": "2024-01-31",
+    "provider": "ConEd Electric Grid",
+    "service_type": "grid electricity",
+    "consumption": 84500,
+    "unit": "kWh",
+    "rate_code": "COMM-01",
+    "total_charges": 14365.00
+  },
+  {
+    "bill_id": "UTIL-SOLAR-2024-01",
+    "billing_date": "2024-01-31",
+    "provider": "SunPower Green Fleet",
+    "service_type": "certified solar green power",
+    "consumption": 42000,
+    "unit": "kWh",
+    "rate_code": "RENEWABLE-PPA",
+    "total_charges": 5460.00
+  },
+  {
+    "bill_id": "UTIL-GAS-2024-01",
+    "billing_date": "2024-01-31",
+    "provider": "National Grid Utility",
+    "service_type": "heating natural gas",
+    "consumption": 6200,
+    "unit": "therms",
+    "rate_code": "HEAT-COMM",
+    "total_charges": 4030.00
+  },
+  {
+    "bill_id": "UTIL-ELEC-2024-02",
+    "billing_date": "2024-02-28",
+    "provider": "ConEd Electric Grid",
+    "service_type": "grid electricity",
+    "consumption": 79200,
+    "unit": "kWh",
+    "rate_code": "COMM-01",
+    "total_charges": 13464.00
+  }
+]

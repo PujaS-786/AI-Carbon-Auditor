@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "report_standard": "GHG Protocol Corporate Standard (Scope 1, 2 & 3)",
+    "audit_trail_status": "VERIFIED_INTEGRITY",
+    "total_ledger_blocks": 718
+  },
+  "summary": {
+    "total_tonnes_co2e": 231.2383,
+    "total_kg_co2e": 231238.3,
+    "average_confidence_rating": "94.2%",
+    "audit_readiness_score": "High (Grade A)",
+    "records_disclosed": 12
+  },
+  "scopes": {
+    "scope_1_direct_tco2e": 152.1997,
+    "scope_2_electricity_tco2e": 61.5264,
+    "scope_3_value_chain_tco2e": 17.5122
+  },
+  "audit_pipeline_metrics": {
+    "total_ingested_records": 14,
+    "auto_approved_records": 12,
+    "hitl_flagged_records": 2,
+    "hitl_resolved_records": 0,
+    "hitl_rejected_records": 0
+  },
+  "categories": [
+    {
+      "category": "Stationary Combustion",
+      "tonnes_co2e": 113.5484
+    },
+    {
+      "category": "Purchased Electricity",
+      "tonnes_co2e": 61.5264
+    },
+    {
+      "category": "Mobile Combustion",
+      "tonnes_co2e": 38.6513
+    },
+    {
+      "category": "Purchased Capital Goods",
+      "tonnes_co2e": 9.45
+    },
+    {
+      "category": "Upstream Transportation",
+      "tonnes_co2e": 3.7025
+    },
+    {
+      "category": "Waste Generated in Operations",
+      "tonnes_co2e": 3.3226
+    },
+    {
+      "category": "Business Travel",
+      "tonnes_co2e": 1.0371
+    }
+  ],
+  "monthly_trend": [
+    {
+      "month": "2024-01",
+      "tonnes_co2e": 106.6665
+    },
+    {
+      "month": "2024-02",
+      "tonnes_co2e": 124.5718
+    }
+  ],
+  "top_emitters": [
+    {
+      "name": "National Grid Gas",
+      "tonnes_co2e": 80.6512
+    },
+    {
+      "name": "ConEd Electric Grid",
+      "tonnes_co2e": 60.8964
+    },
+    {
+      "name": "Apex Fuel Supplies",
+      "tonnes_co2e": 38.6513
+    },
+    {
+      "name": "National Grid Utility",
+      "tonnes_co2e": 32.8972
+    },
+    {
+      "name": "Dell Technologies",
+      "tonnes_co2e": 9.45
+    },
+    {
+      "name": "CleanCity Waste Mgmt",
+      "tonnes_co2e": 3.3226
+    },
+    {
+      "name": "Metro Logistics Corp",
+      "tonnes_co2e": 2.0169
+    },
+    {
+      "name": "FastShip Air Cargo",
+      "tonnes_co2e": 1.6856
+    },
+    {
+      "name": "Delta Airlines",
+      "tonnes_co2e": 1.0249
+    },
+    {
+      "name": "SunPower Green Fleet",
+      "tonnes_co2e": 0.63
+    },
+    {
+      "name": "Amtrak Express",
+      "tonnes_co2e": 0.0123
+    }
+  ]
+}

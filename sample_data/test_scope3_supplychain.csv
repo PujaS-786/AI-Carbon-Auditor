@@ -1,0 +1,6 @@
+transaction_id,transaction_date,vendor,category,description,quantity,unit,cost_usd
+ERP-S3-201,2026-03-02,United Airlines,Business Travel,transcontinental flight SFO-JFK,4150,km,920.00
+ERP-S3-202,2026-03-04,Amtrak Acela,Business Travel,passenger train NYC-DC,360,km,195.00
+ERP-S3-203,2026-03-08,Apple Enterprise,Capital Goods,workstation laptops,25,units,37500.00
+ERP-S3-204,2026-03-12,C.H. Robinson,Logistics,interstate truck freight,8500,tonne_km,3400.00
+ERP-S3-205,2026-03-16,Waste Management Inc,Operations,commercial landfill waste,4200,kg,1100.00

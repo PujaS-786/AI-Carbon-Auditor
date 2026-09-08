@@ -1,0 +1,16 @@
+Record ID,Date,Supplier/Facility,Activity,Scope,Category,Quantity,Unit,Emission Factor,Factor Unit,kg CO2e,Tonnes CO2e,Confidence
+INV-2024-001,2024-01-15,Metro Logistics Corp,freight_truck_tonne_km,Scope 3,Upstream Transportation,12450.0,tonne_km,0.162,kg_co2e_per_tonne_km,2016.9,2.0169,0.95
+INV-2024-002,2024-01-18,Apex Fuel Supplies,diesel_fuel_liters,Scope 1,Mobile Combustion,14384.558,liters,2.687,kg_co2e_per_liter,38651.3073,38.651307,0.85
+INV-2024-003,2024-02-01,National Grid Gas,natural_gas_therm,Scope 1,Stationary Combustion,15200.0,therms,5.306,kg_co2e_per_therm,80651.2,80.6512,0.95
+INV-2024-004,2024-02-14,FastShip Air Cargo,freight_air_tonne_km,Scope 3,Upstream Transportation,2800.0,tonne_km,0.602,kg_co2e_per_tonne_km,1685.6,1.6856,0.95
+ERP-TRV-101,2024-01-20,Delta Airlines,air_travel_passenger_km,Scope 3,Business Travel,5570.0,passenger_km,0.184,kg_co2e_per_passenger_km,1024.88,1.02488,0.95
+ERP-TRV-102,2024-01-28,Amtrak Express,rail_travel_passenger_km,Scope 3,Business Travel,350.0,passenger_km,0.035,kg_co2e_per_passenger_km,12.25,0.01225,0.95
+ERP-PRC-201,2024-02-10,Dell Technologies,it_hardware_unit,Scope 3,Purchased Capital Goods,45.0,units,210.0,kg_co2e_per_unit,9450.0,9.45,0.95
+ERP-WST-301,2024-02-22,CleanCity Waste Mgmt,waste_landfill_kg,Scope 3,Waste Generated in Operations,5669.9,kg,0.586,kg_co2e_per_kg,3322.5614,3.322561,0.95
+UTIL-ELEC-2024-01,2024-01-31,ConEd Electric Grid,electricity_grid_kwh,Scope 2,Purchased Electricity,84500.0,kwh,0.372,kg_co2e_per_kwh,31434.0,31.434,0.95
+UTIL-SOLAR-2024-01,2024-01-31,SunPower Green Fleet,electricity_grid_green_kwh,Scope 2,Purchased Electricity,42000.0,kwh,0.015,kg_co2e_per_kwh,630.0,0.63,0.95
+UTIL-GAS-2024-01,2024-01-31,National Grid Utility,natural_gas_therm,Scope 1,Stationary Combustion,6200.0,therms,5.306,kg_co2e_per_therm,32897.2,32.8972,0.95
+UTIL-ELEC-2024-02,2024-02-28,ConEd Electric Grid,electricity_grid_kwh,Scope 2,Purchased Electricity,79200.0,kwh,0.372,kg_co2e_per_kwh,29462.4,29.4624,0.95
+INV-2024-005,2024-03-05,Anomalous Fuels Unlimited,diesel_fuel_liters,Scope 1,Mobile Combustion,3217598.5,liters,2.687,kg_co2e_per_liter,8645687.1695,8645.687169,0.85
+BATCH-TEST-999,2026-03-01,Batch Test Vendor,diesel_fuel_liters,Scope 1,Mobile Combustion,100.0,liters,2.68,kgCO2e/liter,268.0,0.268,0.6
+ERP-UNK-999,2024-03-01,General Supplier,procurement generic expense,Scope 2,Purchased Electricity,-500.0,unknown,0.372,kg_co2e_per_kwh,-186.0,-0.186,0.1

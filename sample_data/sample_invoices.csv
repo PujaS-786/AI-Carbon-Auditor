@@ -1,0 +1,6 @@
+invoice_id,date,vendor,activity,quantity,unit,amount_usd
+INV-2024-001,2024-01-15,Metro Logistics Corp,freight trucking,12450,tonne_km,4350.00
+INV-2024-002,2024-01-18,Apex Fuel Supplies,fleet diesel,3800,gallons,14250.00
+INV-2024-003,2024-02-01,National Grid Gas,heating natural gas,15200,therms,9880.00
+INV-2024-004,2024-02-14,FastShip Air Cargo,air freight cargo,2800,tonne_km,8900.00
+INV-2024-005,2024-03-05,Anomalous Fuels Unlimited,fleet diesel,850000,gallons,2975000.00

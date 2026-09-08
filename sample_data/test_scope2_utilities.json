@@ -1,0 +1,29 @@
+[
+  {
+    "bill_id": "UTIL-S2-101",
+    "billing_date": "2026-03-01",
+    "provider": "Pacific Power & Light",
+    "service_type": "grid electricity",
+    "consumption": 65000,
+    "unit": "kWh",
+    "total_charges": 9750.00
+  },
+  {
+    "bill_id": "UTIL-S2-102",
+    "billing_date": "2026-03-01",
+    "provider": "SunEdison Clean Solar",
+    "service_type": "certified solar green power",
+    "consumption": 38000,
+    "unit": "kWh",
+    "total_charges": 4940.00
+  },
+  {
+    "bill_id": "UTIL-S2-103",
+    "billing_date": "2026-03-15",
+    "provider": "Midwest Energy Grid",
+    "service_type": "facility electricity",
+    "consumption": 52000,
+    "unit": "kWh",
+    "total_charges": 7800.00
+  }
+]

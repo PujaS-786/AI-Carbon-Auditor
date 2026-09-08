@@ -1,0 +1,6 @@
+invoice_id,date,vendor,activity,quantity,unit,amount_usd
+INV-ERR-001,2026-03-01,MegaAnomalous Fuel Corp,fleet diesel,990000,gallons,3465000.00
+INV-ERR-002,2026-03-02,,mystery fuel,-250,liters,500.00
+INV-ERR-003,2026-03-03,Duplicate Trucking LLC,freight trucking,5000,tonne_km,2100.00
+INV-ERR-004,2026-03-03,Duplicate Trucking LLC,freight trucking,5000,tonne_km,2100.00
+INV-ERR-005,2026-03-04,Unregistered Vendor,unknown activity,100,unknown,100.00

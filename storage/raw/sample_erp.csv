@@ -1,0 +1,6 @@
+transaction_id,transaction_date,vendor,category,description,quantity,unit,cost_usd
+ERP-TRV-101,2024-01-20,Delta Airlines,Business Travel,commercial flight NYC-LON,5570,km,1200.00
+ERP-TRV-102,2024-01-28,Amtrak Express,Business Travel,passenger rail travel BOS-NYC,350,km,180.00
+ERP-PRC-201,2024-02-10,Dell Technologies,Capital Goods,enterprise employee laptops,45,units,54000.00
+ERP-WST-301,2024-02-22,CleanCity Waste Mgmt,Waste Operations,commercial landfill waste,12500,lbs,3200.00
+ERP-UNK-999,2024-03-01,,Unspecified Services,procurement generic expense,-500,unknown,500.00
