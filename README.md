@@ -141,3 +141,4 @@ python app.py --cli --file sample_data/sample_invoices.csv
 python -m pytest tests/ -v
 ```
 All 7 unit and integration tests (including tamper detection) will run and verify chain integrity.
+std::end;
